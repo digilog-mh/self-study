@@ -1,4 +1,4 @@
-package hello.springmvc.basic.requestmapping.request;
+package hello.springmvc.basic.request;
 
 import hello.springmvc.basic.HelloData;
 import jakarta.servlet.http.HttpServletRequest;
