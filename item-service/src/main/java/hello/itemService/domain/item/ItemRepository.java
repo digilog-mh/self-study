@@ -14,7 +14,7 @@ public class ItemRepository {
     private static long sequense = 0L; //static
 
     public Item save(Item item) {
-        item.setId(sequense++);
+        item.setId(++sequense);
         store.put(item.getId(), item);
         return item;
     }
