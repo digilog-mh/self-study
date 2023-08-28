@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -74,12 +75,23 @@ public class BasicItemController {
         return "basic/item";
     }*/
 
-    @PostMapping("/add")
-    public String addItemV4( Item item){
+    //@PostMapping("/add")
+    public String addItemV4(Item item){
 
         itemRepository.save(item);
 
-        return "basic/item";
+        //return "basic/item"; 새로고침을 하는 경우 저장로직이 계속 불러져오는 이슈가 발생.
+        //위 이슈 해결방안으로 redirect 사용.
+        return "redirect:/basic/items/"+item.getId();
+    }
+
+    @PostMapping("/add")
+    public String addItemV5(Item item, RedirectAttributes redirectAttributes){
+
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId",savedItem.getId()); //url 인코딩 지원.
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/basic/items/{itemId}";
     }
 
     @GetMapping("/{itemId}/edit")
@@ -106,4 +118,7 @@ public class BasicItemController {
         itemRepository.save(new Item("itemA",10000,10));
         itemRepository.save(new Item("itemB",20000,20));
     }
+
+
+
 }
