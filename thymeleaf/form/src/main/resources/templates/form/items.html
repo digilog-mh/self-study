@@ -40,7 +40,7 @@
                 <td th:text="${item.price}">10000</td>
                 <td th:text="${item.quantity}">10</td>
                 <td>
-                    <input type="checkbox" id="open" th:field="${items}" th:value="${item.open}" class="form-check-input" disabled>
+                    <input type="checkbox" id="open" th:checked="${item.open}" class="form-check-input" disabled>
                 </td>
             </tr>
             </tbody>
