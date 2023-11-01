@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ApiExceptionV2Controller {
 
+    /*
     //Controller에서 Exception 발생시, Dispatcher servlet이 exceptionResolver 호출.
     //exceptionResolver에서 해당 Controller에서 @ExceptionHandler 어노테이션을 조회 후 호출.
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -37,7 +38,7 @@ public class ApiExceptionV2Controller {
         log.error("[exceptionHandler] ex ",e);
         return new ErrorResult("EX", "내부올류");
         //ex
-    }
+    }*/
 
     @GetMapping("/api2/members/{id}")
     public MemberDto getMember(@PathVariable("id")String id){
