@@ -1,9 +1,7 @@
-package japbook.japbook;
+package japbook.jpashop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.w3c.dom.html.HTMLBRElement;
 
 @SpringBootApplication
 public class JapbookApplication {

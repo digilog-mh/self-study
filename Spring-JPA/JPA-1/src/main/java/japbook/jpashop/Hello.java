@@ -1,4 +1,4 @@
-package japbook.japbook;
+package japbook.jpashop;
 
 import lombok.Getter;
 import lombok.Setter;
