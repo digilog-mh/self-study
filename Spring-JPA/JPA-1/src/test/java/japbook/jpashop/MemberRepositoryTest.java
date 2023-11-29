@@ -10,7 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
+//테스트시에, @Id @GeneratedValue(GenerateType.IDENTITY) 미설정시 오류 발생.
+//아마도 save시에 데이터를 insert 작동시에 문제가 되는것으로 예상.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MemberRepositoryTest {
