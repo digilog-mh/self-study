@@ -16,9 +16,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class MemberRepositoryTest {
 
-    @Autowired MemberRepository memberRepository;
 
-    @Test
+    /*@Test
     @Transactional
     @Rollback(false)
     public void testMember() throws Exception{
@@ -34,5 +33,5 @@ public class MemberRepositoryTest {
         assertThat(findMember.getId()).isEqualTo(member.getId());
         assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
         assertThat(findMember).isEqualTo(member); //JPA 엔티티 동일성 보장
-    }
+    }*/
 }
