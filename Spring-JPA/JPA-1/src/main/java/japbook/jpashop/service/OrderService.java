@@ -1,9 +1,6 @@
 package japbook.jpashop.service;
 
-import japbook.jpashop.domain.Delivery;
-import japbook.jpashop.domain.Member;
-import japbook.jpashop.domain.Order;
-import japbook.jpashop.domain.OrderItem;
+import japbook.jpashop.domain.*;
 import japbook.jpashop.domain.item.Item;
 import japbook.jpashop.repository.ItemRepository;
 import japbook.jpashop.repository.MemberRepository;
