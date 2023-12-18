@@ -57,17 +57,23 @@ public class ItemController {
     }
 
     @PostMapping("/items/{itemId}/edit")
-    public String updateItem(@ModelAttribute("form") BookForm form){
-       Book book = new Book();
-       book.setId(form.getId());
-       book.setName(form.getName());
-       book.setPrice(form.getPrice());
-       book.setStockQuantity(form.getStockQuantity());
-       book.setAuthor(form.getAuthor());
-       book.setIsbn(form.getIsbn());
+    public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") BookForm form){
+        /*Book book = new Book();
+        book.setId(form.getId());
+        book.setName(form.getName());
+        book.setPrice(form.getPrice());
+        book.setStockQuantity(form.getStockQuantity());
+        book.setAuthor(form.getAuthor());
+        book.setIsbn(form.getIsbn());*/
 
-       itemService.saveItem(book);
-       return "redirect:/items";
+        //준영속 엔티티를 merge 하는 방식.
+        //itemService.saveItem(book);
+
+        //변동 감지를 사용한 방식. >> 실무에서는 변동감지를 사용.
+        //만약 변경 필드가 많다면 별도의 dto를 만들어서 세팅.
+        itemService.updateItem(itemId, form.getName(), form.getPrice(), form.getStockQuantity());
+
+        return "redirect:/items";
     }
 
     private Book createBook(BookForm form) {
