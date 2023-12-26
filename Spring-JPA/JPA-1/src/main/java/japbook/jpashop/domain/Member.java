@@ -21,7 +21,7 @@ public class Member {
     @Embedded
     private Address address;
 
-    //@JsonIgnore //API 요청시에, json 반환을 무시.
+    @JsonIgnore //API 요청시에, json 반환을 무시.
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
