@@ -18,7 +18,7 @@ spring:
 
 logging.level:
     org.hibernate.SQL: debug
-    org.hibernate.orm.jdbc.bind: trace
+    # org.hibernate.orm.jdbc.bind: trace
 
 # C:\'Program Files (x86)'\H2\bin
 # jdbc:h2:mem:test
