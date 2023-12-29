@@ -1,4 +1,3 @@
-import java.util.*
 
 fun main(args: Array<String>) {
 
@@ -38,4 +37,5 @@ fun main(args: Array<String>) {
         .sortedBy { it }
         .map { it.uppercase() }
         .forEach { print(it+"-") }
+
 }
