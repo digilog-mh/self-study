@@ -141,5 +141,26 @@ public class OrderRepository {
                 .getResultList();
     }
 
+    public List<Order> findAllWithItem(){
+        //Hibernate 6.0부터는 distinct가 자동 적용
+        //컬렉션 페치 조인은 1개만 사용할 수 있다. 컬렉션 둘 이상에 페치 조인을 사용하면 안된다.
+        // 데이터가 부정합하게 조회될 수 있다.
+        return em.createQuery(
+                "select o from Order o " +
+                        "join fetch o.member m " +
+                        "join fetch o.delivery d " +
+                        "join fetch o.orderItems oi " +
+                        "join fetch oi.item i ", Order.class)
+                .setFirstResult(1) //0부터 시작.
+                .setMaxResults(100)
+                .getResultList();
+    }
 
+
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+        return em.createQuery("select o from Order o ", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
 }
