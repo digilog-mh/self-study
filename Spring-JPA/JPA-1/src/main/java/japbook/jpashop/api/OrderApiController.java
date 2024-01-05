@@ -2,6 +2,8 @@ package japbook.jpashop.api;
 
 import japbook.jpashop.domain.*;
 import japbook.jpashop.repository.OrderRepository;
+import japbook.jpashop.repository.order.query.OrderFlatDto;
+import japbook.jpashop.repository.order.query.OrderItemQueryDto;
 import japbook.jpashop.repository.order.query.OrderQueryDto;
 import japbook.jpashop.repository.order.query.OrderQueryRepository;
 import lombok.Data;
@@ -76,6 +78,26 @@ public class OrderApiController {
     @GetMapping("/api/v5/orders")
     public List<OrderQueryDto> ordersV5(){
         return orderQueryRepository.findAllByDto_optimization();
+    }
+
+    /**
+     * 장점: 쿼리가 1번만 나간다
+     * 단점: 1) join으로 인해 실제 데이터가 많은 경우 v5에 비해 성능이 떨어질 수 있다.
+     *      2) 페이징 불가능.
+     * @return
+     */
+    @GetMapping("/api/v6/orders")
+    public List<OrderQueryDto> ordersV6(){
+        List<OrderFlatDto> flats = orderQueryRepository.findAllByDto_flat();
+
+        return flats.stream()
+                .collect(groupingBy(o -> new OrderQueryDto(o.getOrderId(), o.getName(), o.getOrderDate(), o.getOrderStatus(), o.getAddress()),
+                        mapping(o -> new OrderItemQueryDto(o.getOrderId(),o.getItemName(),o.getOrderPrice(), o.getCount()), toList())
+                )).entrySet().stream()
+                .map(e-> new OrderQueryDto(e.getKey().getOrderId(), e.getKey().getName(), e.getKey().getOrderDate(),e.getKey().getOrderStatus()
+                        ,e.getKey().getAddress(), e.getValue()))
+                .collect(Collectors.toList());
+
     }
 
 
