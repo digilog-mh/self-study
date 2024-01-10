@@ -38,7 +38,7 @@ public class MemberService {
     * 해당 Member는 영속성이 끊겼기에 이후 update 관련으로 사용에 의미가 없음.*/
     @Transactional
     public void update(Long id, String name){
-        Member member = memberRepository.findOne(id);
+        Member member = memberRepository.findById(id).get();
         member.setName(name);
     }
 
@@ -48,6 +48,6 @@ public class MemberService {
     }
 
     public Member findOne(Long memberId){
-        return memberRepository.findOne(memberId);
+        return memberRepository.findById(memberId).get();
     }
 }

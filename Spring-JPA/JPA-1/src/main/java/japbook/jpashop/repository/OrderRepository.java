@@ -1,23 +1,31 @@
 package japbook.jpashop.repository;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
+import japbook.jpashop.domain.*;
 import japbook.jpashop.domain.Order;
-import japbook.jpashop.domain.OrderSearch;
-import japbook.jpashop.repository.order.simplequery.OrderSimpleQueryDto;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static japbook.jpashop.domain.QMember.member;
+import static japbook.jpashop.domain.QOrder.order;
+
 @Repository
-@RequiredArgsConstructor
 public class OrderRepository {
 
     private final EntityManager em;
+    private final JPAQueryFactory query;
+
+    public OrderRepository(EntityManager em) {
+        this.em = em;
+        this.query = new JPAQueryFactory(em);
+    }
 
     public void save(Order order){
         em.persist(order);
@@ -27,7 +35,7 @@ public class OrderRepository {
         return em.find(Order.class,id);
     }
 
-    public List<Order> findAll(OrderSearch orderSearch){
+    /*public List<Order> findAll(OrderSearch orderSearch){
         //language=JPAQL
         String jpql = "select o From Order o join o.member m";
         boolean isFirstCondition = true;
@@ -66,7 +74,7 @@ public class OrderRepository {
         }
 
         return query.getResultList();
-    }
+    }*/
 
     /**
      * JPA Criteria (복잡성으로 인해 실무에서 사용하지 않음.)
@@ -97,6 +105,30 @@ public class OrderRepository {
         cq.where(cb.and(criteria.toArray(new Predicate[criteria.size()])));
         TypedQuery<Order> query = em.createQuery(cq).setMaxResults(1000);
         return query.getResultList();
+    }
+
+    public List<Order> findAll(OrderSearch orderSearch){
+        return query
+                .select(order)
+                .from(order)
+                .join(order.member, member)
+                .where(statusEq(orderSearch.getOrderStatus()), nameLike(orderSearch.getMemberName()))
+                .limit(1000)
+                .fetch();
+
+    }
+
+    private BooleanExpression nameLike(String memberName){
+        if (!StringUtils.hasText(memberName)){
+            return null;
+        }
+        return member.name.like(memberName);
+    }
+
+    private BooleanExpression statusEq(OrderStatus status){
+        if (status == null) return null;
+
+        return order.status.eq(status);
     }
 
     public List<Order> findAllByString(OrderSearch orderSearch) {
@@ -135,10 +167,17 @@ public class OrderRepository {
     }
 
     public List<Order> findAllWithMemberDelivery(){
-        return em.createQuery("select o from Order o " +
+        /*return em.createQuery("select o from Order o " +
                         "join fetch o.member m " +
                         "join fetch o.delivery d", Order.class)
-                .getResultList();
+                .getResultList();*/
+
+        //query DSL 로 변환.
+        return query
+                .selectFrom(order)
+                .join(order.member)
+                .join(order.delivery)
+                .fetch();
     }
 
     public List<Order> findAllWithItem(){

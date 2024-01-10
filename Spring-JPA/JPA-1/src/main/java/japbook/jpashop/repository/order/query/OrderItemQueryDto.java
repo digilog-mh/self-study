@@ -1,5 +1,6 @@
 package japbook.jpashop.repository.order.query;
 
+import jakarta.persistence.Entity;
 import lombok.Data;
 
 @Data
@@ -16,4 +17,5 @@ public class OrderItemQueryDto {
         this.orderPrice = orderPrice;
         this.count = count;
     }
+
 }
