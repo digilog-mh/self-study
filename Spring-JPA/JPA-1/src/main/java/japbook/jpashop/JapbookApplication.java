@@ -12,6 +12,8 @@ public class JapbookApplication {
 		SpringApplication.run(JapbookApplication.class, args);
 	}
 
+
+
 	@Bean
 	Hibernate5JakartaModule hibernate5Module() {
 		return new Hibernate5JakartaModule();
