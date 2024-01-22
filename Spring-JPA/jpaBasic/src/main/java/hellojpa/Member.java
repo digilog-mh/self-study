@@ -9,6 +9,15 @@ public class Member {
     private Long id;
     private String name;
 
+    public Member(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    //JPA 특성상, 기본 생성자가 필요함.
+    public Member() {
+    }
+
     public Long getId() {
         return id;
     }

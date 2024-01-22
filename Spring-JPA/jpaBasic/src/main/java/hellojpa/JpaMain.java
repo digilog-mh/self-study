@@ -15,18 +15,18 @@ public class JpaMain {
         tx.begin();
 
         try {
-            //Member findMember = em.find(Member.class, 1L);
-            List<Member> result = em.createQuery(
-                    "select m from Member m"
-                    , Member.class
-            )
-                    .setFirstResult(1)
-                    .setMaxResults(10)
-                    .getResultList();
+            //비영속
+            /*Member member = new Member();
+            member.setId(100L);
+            member.setName("userA");*/
 
-            for (Member member : result) {
-                System.out.println("member = " + member.getName());
-            }
+            //영속, 하지만 DB에 저장되는 것은 아님.
+            //1차 캐쉬에 저장.
+            Member member = em.find(Member.class, 1L);
+
+            member.setName("userA");
+
+            System.out.println(" ============= ");
 
             tx.commit();
         }catch (Exception e){
