@@ -13,7 +13,7 @@
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
-            <!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
+            <property name="hibernate.hbm2ddl.auto" value="create" /> <!--운영서버에는 create, create-drop, update 사용 금지.-->
         </properties>
     </persistence-unit>
 </persistence>
