@@ -22,12 +22,15 @@ public class JpaMain {
 
             //영속, 하지만 DB에 저장되는 것은 아님.
             //1차 캐쉬에 저장.
-            Member member = em.find(Member.class, 1L);
+            /*Member member = em.find(Member.class, 1L);
 
-            member.setName("userA");
+            member.setName("userA");*/
 
-            System.out.println(" ============= ");
-
+            Member member = new Member();
+            member.setUsername("A");
+            System.out.println("===========");
+            em.persist(member);
+            System.out.println("===========");
             tx.commit();
         }catch (Exception e){
             tx.rollback();
