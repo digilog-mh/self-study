@@ -1,4 +1,4 @@
-import hi.pkg.*
+package ch
 
 class ch4 {
 }

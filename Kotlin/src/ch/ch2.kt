@@ -1,3 +1,5 @@
+package ch
+
 class ch2{
     companion object {
         fun testArray() {

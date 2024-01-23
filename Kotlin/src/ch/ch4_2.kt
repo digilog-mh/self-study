@@ -1,4 +1,4 @@
-package hi.pkg
+package ch
 
 class ch4_2 {
 }

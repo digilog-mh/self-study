@@ -1,4 +1,4 @@
-package javaToKt
+package javaToKotlin.lv1
 
 class sol1 {
     /*
