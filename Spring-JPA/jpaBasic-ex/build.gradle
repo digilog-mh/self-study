@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group 'jpa-basic'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.hibernate:hibernate-entitymanager:5.6.15.Final'
+    implementation 'org.projectlombok:lombok:1.18.20'
+    runtimeOnly 'com.h2database:h2:2.1.214'
+
+    implementation 'javax.xml.bind:jaxb-api'
+
+}
+
+sourceSets {
+    main {
+        output.resourcesDir = java.classesDirectory
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
