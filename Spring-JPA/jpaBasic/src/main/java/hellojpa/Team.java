@@ -1,6 +1,8 @@
 package hellojpa;
 
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor
 public class Team {
 
     @Id @GeneratedValue
@@ -19,6 +22,8 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private List<Member> members = new ArrayList<>();
 
-    public Team() {
+    public void addMember(Member member){
+        member.setTeam(this);
+        members.add(member);
     }
 }

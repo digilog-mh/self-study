@@ -37,17 +37,23 @@ public class JpaMain {
             member.setTeam(team);
             em.persist(member);
 
+            //역방향(주인이 아닌 방향)만 연관관계 설정
+            //team.getMembers().add(member);
+            // >> 메서드로 자동 추가.
+            team.addMember(member);
+
             em.flush();
             em.clear();
 
-            Member findMember = em.find(Member.class, member.getId());
-            List<Member> members = findMember.getTeam().getMembers();
-
-            for (Member member1 : members) {
-                System.out.println("m = " + member1.getUsername());
-            }
+            Team findTeam = em.find(Team.class, team.getId());
+            List<Member> members = findTeam.getMembers();
 
             System.out.println("===========");
+
+            for (Member m : members) {
+                System.out.println("m.getUsername = " + m.getUsername());
+            }
+
             tx.commit();
         }catch (Exception e){
             tx.rollback();
