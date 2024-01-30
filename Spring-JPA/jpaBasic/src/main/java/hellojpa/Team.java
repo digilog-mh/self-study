@@ -1,9 +1,6 @@
 package hellojpa;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,19 +8,19 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-@NoArgsConstructor
+@ToString
 public class Team {
 
     @Id @GeneratedValue
-    @Column(name = "TEAM_ID")
     private Long id;
+
     private String name;
 
-    @OneToMany(mappedBy = "team")
+    //읽기만 가능하기에, 테이블에 영향을 주지 않음.
+    @OneToMany
+    @JoinColumn(name = "MEMBER_ID")
     private List<Member> members = new ArrayList<>();
 
-    public void addMember(Member member){
-        member.setTeam(this);
-        members.add(member);
+    public Team() {
     }
 }
