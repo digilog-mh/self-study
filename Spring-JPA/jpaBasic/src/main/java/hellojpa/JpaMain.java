@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -17,17 +18,16 @@ public class JpaMain {
 
         try {
             System.out.println("===========");
+
             Member member = new Member();
-            member.setUsername("Member1");
+            member.setCreatedBy("Kim");
+            member.setUsername("USERA");
+            member.setCreatedDate(LocalDateTime.now());
 
             em.persist(member);
 
-            Team team = new Team();
-            team.setName("TeamA");
-            //
-            team.getMembers().add(member);
-
-            em.persist(team);
+            em.flush();
+            em.clear();
 
             System.out.println("===========");
 
