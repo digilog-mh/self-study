@@ -16,7 +16,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @Table(name = "orders")
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Order {
+public class Order extends BaseEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")

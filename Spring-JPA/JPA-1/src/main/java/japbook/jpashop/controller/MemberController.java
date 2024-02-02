@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -35,6 +36,8 @@ public class MemberController {
         Member member = new Member();
         member.setName(form.getName());
         member.setAddress(address);
+        member.setCreatedBy(form.getName());
+        member.setCreatedDate(LocalDateTime.now());
 
         memberService.join(member);
         return "redirect:/";
