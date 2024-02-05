@@ -5,15 +5,19 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+@Entity
 @Getter @Setter
-public class Locker {
+public class Child {
 
     @Id @GeneratedValue
     private Long id;
 
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "MEMBER_ID")
-    private Member member;
+    @ManyToOne
+    @JoinColumn(name = "PARENT_ID")
+    private Parent parent;
+
+    public Child() {
+    }
 }

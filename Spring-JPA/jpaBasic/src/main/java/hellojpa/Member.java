@@ -26,16 +26,18 @@ public class Member extends BaseEntity{
     @Column(name = "USERNAME", nullable = false)
     private String username;
 
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID",insertable = false, updatable = false)
-    private Team team;
+    @Embedded
+    private Period period;
 
-    @OneToOne(mappedBy = "member")
-   // @JoinColumn(name = "LOCKER_ID")
-    private Locker locker;
+    @Embedded
+    private Address address;
 
-    @OneToMany(mappedBy = "member")
-    private List<MemberProduct> memberProducts = new ArrayList<>();
-
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "city", column = @Column(name = "WORK_CITY")),
+            @AttributeOverride(name = "street", column = @Column(name = "WORK_STREET")),
+            @AttributeOverride(name = "zipcode", column = @Column(name = "WORK_ZIPCODE")),
+    })
+    private Address workAddress;
 
 }

@@ -1,9 +1,6 @@
 package hellojpa;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,19 +17,15 @@ public class JpaMain {
             System.out.println("===========");
 
             Member member = new Member();
-            member.setCreatedBy("Kim");
-            member.setUsername("USERA");
-            member.setCreatedDate(LocalDateTime.now());
-
-            em.persist(member);
-
-            em.flush();
-            em.clear();
+            member.setUsername("UserA");
+            member.setAddress(new Address("City","street","152344"));
+            member.setPeriod(new Period());
 
             System.out.println("===========");
-
+            em.persist(member);
             tx.commit();
         }catch (Exception e){
+            e.printStackTrace();
             tx.rollback();
         }finally {
             em.close();
