@@ -3,10 +3,10 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
     <persistence-unit name="basic">
         <!--빌드 환경에 따라 클래스 인식이 자동으로 안되는 경우 수동으로 작성 or Gradle 빌드인경우, out path 하위의 resource 위치를 classes 디렉토리 하위로 이동해주면 됨.-->
-        <!--<class>jpabook.jpashop.domain.Item</class>
+        <class>jpabook.jpashop.domain.Item</class>
         <class>jpabook.jpashop.domain.Member</class>
         <class>jpabook.jpashop.domain.Order</class>
-        <class>jpabook.jpashop.domain.OrderItem</class>-->
+        <class>jpabook.jpashop.domain.OrderItem</class>
         <properties>
             <!-- 필수 속성 -->
             <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>

@@ -19,8 +19,15 @@ public class JpaMain {
         try {
             tx.begin();
 
-            Member member = em.find(Member.class,1L);
-            printMember(member);
+            Book book = new Book();
+            book.setCreatedDate(LocalDateTime.now());
+            book.setPrice(15000);
+            book.setAuthor("authorA");
+
+            em.persist(book);
+
+            em.flush();
+            em.clear();
 
             tx.commit();
         }catch (Exception e){
@@ -33,7 +40,4 @@ public class JpaMain {
         emf.close();
     }
 
-    private static void printMember(Member member) {
-        System.out.println("member = " + member.getUserName());
-    }
 }
