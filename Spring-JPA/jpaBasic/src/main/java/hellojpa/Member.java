@@ -7,7 +7,9 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -26,18 +28,17 @@ public class Member extends BaseEntity{
     @Column(name = "USERNAME", nullable = false)
     private String username;
 
+    //값타입의 경우, 객체간의 참조값 복사를 막기 위해 Setter 메서드를 사용하지 않도록 막아둘 수 있다.(=불변 객체로 설계)
     @Embedded
-    private Period period;
+    private Address homeAddress;
 
-    @Embedded
-    private Address address;
+    @ElementCollection //지연로딩이 Defualt값.
+    @CollectionTable(name="FAVORITE_FOOD", joinColumns = @JoinColumn(name = "MEMBER_ID"))
+    private Set<String> favoriteFoods = new HashSet<>();
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "city", column = @Column(name = "WORK_CITY")),
-            @AttributeOverride(name = "street", column = @Column(name = "WORK_STREET")),
-            @AttributeOverride(name = "zipcode", column = @Column(name = "WORK_ZIPCODE")),
-    })
-    private Address workAddress;
+    @ElementCollection
+    @CollectionTable(name="ADDRESS", joinColumns = @JoinColumn(name = "MEMBER_ID"))
+    private List<Address> addressHistory = new ArrayList<>();
+
 
 }

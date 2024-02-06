@@ -6,7 +6,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
-@Getter @Setter
+@Getter
 @Embeddable
 @AllArgsConstructor
 @NoArgsConstructor

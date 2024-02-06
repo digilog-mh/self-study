@@ -3,11 +3,12 @@ package hellojpa;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 
 public class JpaMain {
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pratice");
         EntityManager em = emf.createEntityManager();
 
         EntityTransaction tx = em.getTransaction();
@@ -16,14 +17,10 @@ public class JpaMain {
         try {
             System.out.println("===========");
 
-            Member member = new Member();
-            member.setUsername("UserA");
-            member.setAddress(new Address("City","street","152344"));
-            member.setPeriod(new Period());
-
             System.out.println("===========");
-            em.persist(member);
+
             tx.commit();
+            System.out.println("===========");
         }catch (Exception e){
             e.printStackTrace();
             tx.rollback();
