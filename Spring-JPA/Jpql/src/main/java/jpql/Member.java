@@ -13,8 +13,7 @@ import java.util.Set;
 
 @Entity
 @Getter @Setter
-@ToString
-
+@ToString(exclude = "team")
 public class Member{
 
     @Id
@@ -25,9 +24,16 @@ public class Member{
 
     private int age;
 
-    @ManyToOne
+    public void changeTeam(Team team){
+        this.team = team;
+        team.getMembers().add(this);
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
+    @Enumerated(EnumType.STRING)
+    private MemberType type;
 
 }

@@ -1,6 +1,7 @@
 package jpql;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -15,21 +16,32 @@ public class JpaMain {
         try {
             System.out.println("===========");
 
-            Member member = new Member();
-            member.setUsername("member1");
-            em.persist(member);
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
+
+            Member m = new Member();
+            m.setUsername("관리자");
+            m.setAge(35);
+            m.setType(MemberType.ADMIN);
+
+            m.setTeam(team);
+
+            em.persist(m);
 
             System.out.println("===========");
 
-            TypedQuery<Member> query = em.createQuery(
-                    "select m from Member m where m.username = :username"
-                    , Member.class
-            ).setParameter("username", "member1");
+            em.flush();
+            em.clear();
 
-            System.out.println("member = " + query.getSingleResult());
+            List<String> list = em.createQuery(
+                    "select nullif(m.username, '관리자') as username " +
+                            "from Member m "
+            ).getResultList();
 
-
-
+            for (String s : list) {
+                System.out.println("s = " + s);
+            }
 
             tx.commit();
             System.out.println("===========");

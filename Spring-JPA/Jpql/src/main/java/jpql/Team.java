@@ -1,8 +1,6 @@
 package jpql;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,6 +9,8 @@ import java.util.List;
 @Entity
 @Getter @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Team{
     @Id @GeneratedValue
     private Long id;
